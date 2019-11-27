@@ -7,7 +7,7 @@ import Icons from 'react-native-vector-icons/Ionicons';
 import Home from './home';
 import Favoritos from './favoritos';
 
-const {height, width} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 const barHeight = 70;
 
 const styles = StyleSheet.create({
