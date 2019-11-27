@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
-import {View, Text} from 'react-native';
-import SearchBar from 'react-native-material-design-searchbar';
+import {ScrollView, View} from 'react-native';
 import BookService from '../service/bookService';
+
+import SearchBar from 'react-native-material-design-searchbar';
+import ItemView from './itemView';
 
 // import { Container } from './styles';
 
@@ -10,15 +12,17 @@ export default function Home() {
   const [books, updateBooks] = useState([]);
 
   async function LiveSearch(value) {
-    if (value.length >= 3) {
+    if (value.trim().length >= 1) {
       updateText(value);
       const data = await BookService.getBookByName(text);
-      console.log(data.items[0].volumeInfo);
+      if (data) {
+        updateBooks(data.items);
+      }
     }
   }
 
   return (
-    <View>
+    <ScrollView style={{flex: 1}}>
       <SearchBar
         height={50}
         placeholder={'Digite o nome do livro ...'}
@@ -27,8 +31,15 @@ export default function Home() {
         onSearchChange={LiveSearch}
       />
       <View>
-        {books && books.map(book => <Text>{book.volumeInfo.title}</Text>)}
+        {books &&
+          books.map((book, index) => (
+            <ItemView
+              title={book.volumeInfo.title}
+              urlImage={book.volumeInfo.imageLinks.thumbnail}
+              key={index}
+            />
+          ))}
       </View>
-    </View>
+    </ScrollView>
   );
 }
