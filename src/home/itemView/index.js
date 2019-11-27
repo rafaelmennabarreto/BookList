@@ -1,5 +1,6 @@
-import React, {useEffect} from 'react';
-import {StyleSheet, Dimensions, View, Image, Text} from 'react-native';
+import React from 'react';
+import {StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
+import {Card, Image} from 'react-native-elements';
 
 import CardView from 'react-native-cardview';
 
@@ -8,30 +9,28 @@ export default function ItemView(props) {
   const {title, urlImage, key} = props;
 
   return (
-    <CardView key={key}>
-      <Image
-        style={styles.image}
-        resizeMode="contain"
-        source={{
-          uri: urlImage ? urlImage : '',
-        }}
-      />
-      <Text style={styles.text}> {title} </Text>
-    </CardView>
+    <TouchableOpacity>
+      <Card containerStyle={styles.container} title={title}>
+        <Image
+          style={styles.image}
+          resizeMode="contain"
+          source={{
+            uri: urlImage ? urlImage : '',
+          }}
+          placeholderContent="loading..."
+        />
+      </Card>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    borderBottomWidth: 2,
-    borderBottomColor: 'red',
-    paddingTop: 5,
-    paddingBottom: 15,
   },
   image: {
     height: 210,
-    width: width * 0.9,
+    marginBottom: 7,
   },
   text: {
     width: width * 0.7,
