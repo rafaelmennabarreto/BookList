@@ -1,24 +1,30 @@
 import React, {useState} from 'react';
 import {ScrollView, View} from 'react-native';
-import BookService from '../service/bookService';
+import BookService from '../../service/bookService';
 
 import SearchBar from 'react-native-material-design-searchbar';
-import ItemView from './itemView';
+import ItemView from '../itemView';
 
 // import { Container } from './styles';
 
-export default function Home() {
+export default function Main({navigation}) {
   const [text, updateText] = useState('');
   const [books, updateBooks] = useState([]);
 
   async function LiveSearch(value) {
-    if (value.trim().length >= 1) {
-      updateText(value);
-      const data = await BookService.getBookByName(text);
-      if (data) {
-        updateBooks(data.items);
-      }
+    if (value.trim().length >= 2) {
+      setTimeout(async () => {
+        updateText(value);
+        const data = await BookService.getBookByName(text);
+        if (data) {
+          updateBooks(data.items);
+        }
+      }, 250);
     }
+  }
+
+  function navigateToBookDetail(book) {
+    navigation.navigate('BOOK', {data: book});
   }
 
   return (
@@ -37,6 +43,7 @@ export default function Home() {
               title={book.volumeInfo.title}
               urlImage={book.volumeInfo.imageLinks.thumbnail}
               key={index}
+              onPress={() => navigateToBookDetail(book)}
             />
           ))}
       </View>

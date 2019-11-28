@@ -2,15 +2,17 @@ import React from 'react';
 import {StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
 import {Card, Image} from 'react-native-elements';
 
-import CardView from 'react-native-cardview';
-
 const {width} = Dimensions.get('window');
 export default function ItemView(props) {
-  const {title, urlImage, key} = props;
+  const {title, urlImage, key, onPress} = props;
+
+  function press() {
+    onPress ? onPress() : '';
+  }
 
   return (
-    <TouchableOpacity>
-      <Card containerStyle={styles.container} title={title}>
+    <TouchableOpacity onPress={press}>
+      <Card containerStyle={styles.container} title={title} key={key}>
         <Image
           style={styles.image}
           resizeMode="contain"

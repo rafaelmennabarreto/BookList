@@ -4,8 +4,8 @@ import {createAppContainer} from 'react-navigation';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import Icons from 'react-native-vector-icons/Ionicons';
 
-import Home from './home';
 import Favoritos from './favoritos';
+import HomeRoutes from './home/homeRoutes';
 
 const {width} = Dimensions.get('window');
 const barHeight = 70;
@@ -34,7 +34,7 @@ const Routes = createAppContainer(
   createMaterialBottomTabNavigator(
     {
       HOME: {
-        screen: Home,
+        screen: HomeRoutes,
         navigationOptions: {
           tabBarIcon: ({focused, tintColor}) =>
             getTabIcon('ios-home', tintColor, 'Home', focused),

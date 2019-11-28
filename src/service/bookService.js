@@ -10,6 +10,17 @@ const getBookByName = async bookName => {
   }
 };
 
+const getBookById = async bookId => {
+  try {
+    const response = await fetch(`${URL}id:${bookId}`);
+    const data = await response.json();
+    return data;
+  } catch {
+    return '';
+  }
+};
+
 export default {
   getBookByName,
+  getBookById,
 };
